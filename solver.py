@@ -1,4 +1,5 @@
 from setter import get_sudoku_array
+from visualiser import print_sudoku
 
 
 def get_legal_values(sudoku, row, col):
@@ -81,5 +82,10 @@ def recursion_solve(sudoku, r_ind, c_ind):
 
 
 sudoku = get_sudoku_array()
-d = recursion_solve(sudoku, 0, 0)
-print(d)
+print('Original...')
+print_sudoku(sudoku)
+
+solved = recursion_solve(sudoku, 0, 0)
+
+print('Solved...')
+print_sudoku(solved)
