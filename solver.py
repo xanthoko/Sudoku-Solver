@@ -41,7 +41,6 @@ def get_legal_values(sudoku, row, col):
 
 
 def recursion_solve(sudoku, r_ind, c_ind):
-    # print(r_ind, c_ind)
     if sudoku[r_ind, c_ind]:
         next_c = c_ind
         next_r = r_ind
@@ -57,8 +56,6 @@ def recursion_solve(sudoku, r_ind, c_ind):
         return ret
 
     availabe_values = get_legal_values(sudoku, r_ind, c_ind)
-    # if r_ind == 8 and c_ind == 8:
-    #     print(availabe_values)
 
     if not availabe_values:
         return None
