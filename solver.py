@@ -1,5 +1,3 @@
-from collections import OrderedDict
-
 from setter import get_sudoku_array
 
 
@@ -30,9 +28,6 @@ def get_legal_values(sudoku, row, col):
 
     # the set of values that are not availabe
     restricted_values = list(set(row_values + col_values + flat_square))
-    # if row == 0 and col == 6:
-    #     print(sudoku)
-    #     print(restricted_values)
 
     # available values = total - restricted
     availabe_values = [x for x in total_range if x not in restricted_values]
@@ -42,6 +37,7 @@ def get_legal_values(sudoku, row, col):
 
 def recursion_solve(sudoku, r_ind, c_ind):
     if sudoku[r_ind, c_ind]:
+        # tile already filled
         next_c = c_ind
         next_r = r_ind
         if c_ind < 8:
@@ -52,7 +48,6 @@ def recursion_solve(sudoku, r_ind, c_ind):
 
         # recursion call
         ret = recursion_solve(sudoku, next_r, next_c)
-        # already filled
         return ret
 
     availabe_values = get_legal_values(sudoku, r_ind, c_ind)
@@ -85,65 +80,6 @@ def recursion_solve(sudoku, r_ind, c_ind):
             return ret
 
 
-def solve():
-    sudoku = get_sudoku_array()
-
-    history = OrderedDict()
-    counter = 0
-
-    r_ind = 0
-    c_ind = 0
-    while True:
-        sudoku_value = sudoku[r_ind, c_ind]
-
-        if not sudoku_value:
-            try:
-                availabe_values = history[(r_ind, c_ind)]
-            except KeyError:
-                # KeyError: newly visited tile
-                availabe_values = get_legal_values(sudoku, r_ind, c_ind)
-
-            if availabe_values:
-                # fill the tile
-                sudoku[r_ind, c_ind] = availabe_values.pop(0)
-                # update availability dict
-                history[(r_ind, c_ind)] = availabe_values
-            else:
-                print('No available values in {},{}'.format(r_ind, c_ind))
-                # get the last filled tile and replace its value with the next
-                # available one
-                latest_filled = next(reversed(history))
-                # erase the filled value, NOTE: is this neccessary?
-                sudoku[latest_filled] = 0
-                latest_available = history[latest_filled]
-
-                if not latest_available:
-                    del history[latest_filled]
-                    latest_filled = next(reversed(history))
-
-                r_ind, c_ind = latest_filled
-                counter += 1
-                if counter == 9:
-                    print(r_ind, c_ind)
-                    print(sudoku)
-                    break
-                continue
-
-        if c_ind < 8:
-            c_ind += 1
-        else:
-            if r_ind == 8:
-                # the end, do what?
-                break
-            r_ind += 1
-            c_ind = 0
-
-    # print('Done')
-    # print(sudoku)
-    print(history)
-
-
-# solve()
 sudoku = get_sudoku_array()
 d = recursion_solve(sudoku, 0, 0)
 print(d)
