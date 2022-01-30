@@ -1,8 +1,11 @@
-import numpy
-from typing import Set, Tuple
+from typing import Set
+from typing import Tuple
 
+import numpy
+from helpers import is_board_valid
+from helpers import print_board
+from helpers import timed
 from setter import fetch_board
-from helpers import print_board, is_board_valid, timed
 
 
 def _get_legal_values(row: int, col: int) -> Set[int]:

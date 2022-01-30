@@ -1,6 +1,7 @@
+from typing import Optional
+
 import numpy
 import requests
-from typing import Optional
 
 DEFAULT_BOARD = [[0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 1, 6, 0],
                  [0, 6, 7, 0, 3, 5, 0, 0, 4], [6, 0, 8, 1, 2, 0, 9, 0, 0],
