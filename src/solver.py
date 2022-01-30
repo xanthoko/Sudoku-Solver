@@ -22,9 +22,9 @@ def _get_legal_values(row: int, col: int) -> Set[int]:
     col_start = col // 3 * 3
     col_end = (col // 3 + 1) * 3
     square = board[row_start:row_end, col_start:col_end]
-    square = set(square.flatten())
+    square_set = set(square.flatten())
 
-    restricted_values = row_values | col_values | square
+    restricted_values = row_values | col_values | square_set
 
     return possilbe_values - restricted_values
 
@@ -66,7 +66,7 @@ def solve(row: int, col: int) -> None:
         board[row, col] = 0  # solution failed -> backtrack
 
 
-def main():
+def main() -> None:
     parent()
     print_board(solved)
     print(f'Valid: {is_board_valid(solved)}')

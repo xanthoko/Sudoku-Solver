@@ -1,4 +1,6 @@
 import time
+from typing import Any
+from typing import Callable
 
 import numpy
 
@@ -47,9 +49,9 @@ def is_board_valid(board: numpy.ndarray) -> bool:
         return False
 
 
-def timed(func):
+def timed(func: Callable) -> Callable:
 
-    def inner(*args, **kwargs):
+    def inner(*args: Any, **kwargs: Any) -> None:
         start = time.time()
         func(*args, **kwargs)
         duration = time.time() - start
